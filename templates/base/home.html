@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+
+{% if data %}
+
+<div>
+    <h3 class='m-5'>{{ current.name }}, {{ forecast.city.country }}</h3>
+    <p><a href="{% url 'add_favorite' location_name=current.name %}">Add to favorites</a></p>
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Currenty, {{ current.name }}'s weather is {{ current.weather.0.main }}</h5>
+            <p class="card-text"></p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Temperature - {{ current.main.temp }} °C </li>
+            <li class="list-group-item">Description - {{ current.weather.0.description }}</li>
+            <li class="list-group-item">Pressure - {{ current.main.pressure }} hPa</li>
+            <li class="list-group-item">Humidity - {{ current.main.humidity }} %</li>
+            <li class="list-group-item">Wind Speed - {{ current.wind.speed }} m/s</li>
+        </ul>
+    </div>
+
+
+    <br>
+    <h3>Forecasts</h3>
+    <p>Weather forecast for 5 days with data every 3 hours.</p>
+
+    <div class="container text-center">
+        <div class="row align-items-start">
+            {% for item in forecast.list %}
+            <div class="col m-2">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        <small>
+                            Weather at - <b> {{ item.dt_txt }} </b> in <b> {{ forecast.city.name }} (
+                                {{ item.weather.0.main}} )
+                            </b>
+                        </small>
+                    </div>
+                    <ul class="list-group list-group-flush">
+
+                        <li class="list-group-item">Temperature - {{ item.main.temp }} °C </li>
+                        <li class="list-group-item">Pressure - {{ item.main.pressure }} hPa</li>
+                        <li class="list-group-item">Humidity - {{ item.main.humidity }} %</li>
+                        <li class="list-group-item">Wind Speed - {{ item.wind.speed }} m/s</li>
+
+                    </ul>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

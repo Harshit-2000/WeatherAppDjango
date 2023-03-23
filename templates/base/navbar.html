@@ -1,0 +1,23 @@
+<nav class="navbar navbar-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">Weather Application</a>
+        <form method="POST" class="d-flex" action="{% url 'home' %}">
+            {% csrf_token %}
+            <input class="form-control me-5" type="text" placeholder="Search a city" aria-label="Search" name="city">
+        </form>
+        {% if request.user.is_authenticated %}
+        <div>
+            <div>
+                Hello, @{{ request.user.username }}
+                <a class="btn btn-outline-info" href="{% url 'favorites' %}"> Favorites </a>
+                <a class="btn btn-outline-danger" href="{% url 'logout' %}">Logout</a>
+            </div>
+            {% else %}
+            <div>
+                <a class="btn btn-outline-success" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-outline-success" href="{% url 'register' %}">Register</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,16 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h1>Favorite Locations</h1>
+
+{% if favorites %}
+<ul>
+    {% for favorite in favorites %}
+    <li><a href="{% url 'get_favorite' favorite.name %}"> {{ favorite.name }} </a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No favorite locations added yet.</p>
+{% endif %}
+
+{% endblock %}
